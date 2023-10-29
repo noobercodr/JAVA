@@ -1,7 +1,6 @@
 import java.util.Scanner;
 import java.util.Arrays;
-
-public class UserRegistration 
+ class UserRegistration 
 {
     public static void main(String[] args) 
     {
@@ -222,8 +221,7 @@ class AdminSystem
         }
     }
 }
-
-class ExamSystem 
+public class ExamSystem 
 {
     public static void main(String[] args) 
     {
@@ -255,7 +253,8 @@ class ExamSystem
             System.out.println("User Menu:");
             System.out.println("1. View All Exams");
             System.out.println("2. Check Result History");
-            System.out.println("3. Exit");
+            System.out.println("3. Take an Exam");
+            System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
             int choice = scanner.nextInt();
             switch (choice)
@@ -293,9 +292,67 @@ class ExamSystem
                     }
                     break;
                 case 3:
+                    System.out.print("Enter your username: ");
+                    String usernameToTakeExam = scanner.next();
+                    boolean userFound = false;
+                    User takingUser = null;
+                    
+                    // Find the user who wants to take the exam
+                    for (User user : users) 
+                    {
+                        if (user.getUsername().equals(usernameToTakeExam))
+                        {
+                            takingUser = user;
+                            userFound = true;
+                            break;
+                        }
+                    }
+                    
+                    if (userFound) 
+                    {
+                        System.out.println("Select an Exam to Take:");
+                        for (int i = 0; i < exams.length; i++) {
+                            System.out.println((i + 1) + ". " + exams[i].getTitle());
+                        }
+                        
+                        int examChoice = scanner.nextInt();
+                        if (examChoice >= 1 && examChoice <= exams.length) 
+                        {
+                            Exam selectedExam = exams[examChoice - 1];
+                            Question[] questions = selectedExam.getQuestions();
+                            int totalScore = 0;
+                            
+                            for (Question question : questions) 
+                            {
+                                System.out.println("Question: " + question.getQuestionText());
+                                System.out.print("Your Answer: ");
+                                String userAnswer = scanner.next();
+                                
+                                if (userAnswer.equals(question.getCorrectAnswer())) 
+                                {
+                                    System.out.println("Correct!");
+                                    totalScore++;
+                                } else {
+                                    System.out.println("Wrong!");
+                                }
+                            }
+                            
+                            System.out.println("Exam completed. Total Score: " + totalScore);
+                            results = Arrays.copyOf(results, results.length + 1);
+                            results[results.length - 1] = new Result(takingUser, selectedExam, totalScore);
+                        } 
+                        else 
+                        {
+                            System.out.println("Invalid Exam Selection.");
+                        }
+                    } 
+                    else 
+                    {
+                        System.out.println("User not found.");
+                    }
+                    break;
+                case 4:
                     System.out.println("Exiting Exam System.");
-                    scanner.close();
-                    System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid choice. Please select a valid option.");
