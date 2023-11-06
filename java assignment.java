@@ -26,6 +26,7 @@ class Exam {
     }
     public String getTitle() {
         return title;
+    }
     public Question[] getQuestions() {
         return questions;
     }
@@ -191,7 +192,7 @@ class AdminSystem {
     }
 }
 
-public class ExamSystem {
+class ExamSystem {
     public static void main(String[] args) {
         User[] users = {
             new User("User1", "password1"),
@@ -322,5 +323,38 @@ class Result {
 
     public int getScore() {
         return score;
+    }
+}
+public class MainProgram {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        while (true) {
+            System.out.println("Choose an option:");
+            System.out.println("1. User Registration");
+            System.out.println("2. Admin System");
+            System.out.println("3. Exam System");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = sc.nextInt();
+
+            switch (choice) {
+                case 1:
+                    UserRegistration.main(args);
+                    break;
+                case 2:
+                    AdminSystem.main(args);
+                    break;
+                case 3:
+                    ExamSystem.main(args);
+                    break;
+                case 4:
+                    System.out.println("Exiting the program.");
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please select a valid option.");
+            }
+        }
     }
 }
