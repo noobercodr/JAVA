@@ -1,0 +1,24 @@
+import java.util.*;
+public class freq
+{
+    public static void main(String args[])
+    {
+        Scanner ob=new Scanner(System.in);
+        System.out.println("enter the string");
+        String s=ob.nextLine();
+        //int count=0;
+        int arr[]=new int[26];
+        for(int i=0;i<s.length();i++)
+        {
+            arr[(int)s.charAt(i)-'a']++;
+        }
+        for(int i=0;i<s.length();i++)
+        {
+            if(arr[(int)s.charAt(i)-'a']!=0)
+            {
+                System.out.println(" frequency of "+s.charAt(i)+ " is "+arr[(int)s.charAt(i)-'a']);
+                arr[(int)s.charAt(i)-'a']=0;
+            }
+        }
+    }
+}
